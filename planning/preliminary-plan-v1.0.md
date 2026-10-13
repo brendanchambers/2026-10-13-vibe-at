@@ -36,29 +36,6 @@ Learning project to understand BlueSky firehose mechanics by simulating real-tim
 - **Future consideration**: Database layer (planning only, not implemented)
 - Data will be read/processed within this project
 
-### Milestones
-
-**1. Project Planning Document** (`planning/preliminary-plan-v1.0.md`)
-   - ✓ Project scope and goals clarified
-   - ✓ Architecture overview
-   - ✓ Technology choices (ATProto/BlueSky SDK)
-   - ✓ Data storage strategy
-
-**2. Firehose Sampling Planning** (`notes/firehose-plan.md`)
-   - WebSocket connection to public firehose
-   - Configurable sampling strategy
-   - Post filtering (posts only, not all events)
-   - Message structure for JSON storage
-   - File rotation at 10MB limit
-
-**3. Implementation Milestones**
-   - **Setup**: Dependencies (atproto SDK or websocket client), project structure
-   - **Firehose Client**: WebSocket connection & message parsing
-   - **Sampling Logic**: Configurable sampling implementation
-   - **Data Storage**: Save to `data/incoming/firehose/latest/` as JSON
-   - **Main Script**: CLI to run sampler with simple params
-   - **Initial Test**: Successfully capture 3 posts
-
 ### Technical Considerations
 
 **Scope for Learning Project**:
@@ -67,6 +44,7 @@ Learning project to understand BlueSky firehose mechanics by simulating real-tim
 - ✓ Configurable sampling
 - ✓ JSON file output
 - ✓ File size management (10MB limit)
+- Output format optimization
 
 **Future Enhancements (Planning Only)**:
 - Database integration layer
@@ -75,7 +53,7 @@ Learning project to understand BlueSky firehose mechanics by simulating real-tim
 - Scale to 1B+ messages
 - Scale to 1T+ messages
 - Advanced filtering/analysis
-- Output format optimization
+
 
 ### Next Steps
 
