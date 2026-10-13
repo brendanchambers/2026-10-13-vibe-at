@@ -28,6 +28,11 @@ def main():
         default=Path("data/incoming/firehose/unsorted"),
         help="Output directory (default: data/incoming/firehose/unsorted)",
     )
+    parser.add_argument(
+        "--dataset-tag",
+        type=str,
+        help="Dataset tag to name the output file (e.g., 'random_100'). If not provided, uses timestamp.",
+    )
 
     args = parser.parse_args()
 
@@ -36,6 +41,7 @@ def main():
             sample_rate=args.sample_rate,
             max_posts=args.max_posts,
             output_dir=args.output_dir,
+            dataset_tag=args.dataset_tag,
         )
     )
 

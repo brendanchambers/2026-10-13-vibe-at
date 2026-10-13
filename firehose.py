@@ -49,19 +49,24 @@ async def connect_firehose(
                 continue
 
 
-def save_posts(posts: list[dict], output_dir: Path) -> Path:
+def save_posts(posts: list[dict], output_dir: Path, dataset_tag: str | None = None) -> Path:
     """Save posts to JSON file.
 
     Args:
         posts: List of post messages
         output_dir: Directory to save the file
+        dataset_tag: Optional tag to name the dataset (e.g., 'random_100')
 
     Returns:
         Path to the saved file
     """
     output_dir.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filepath = output_dir / f"posts_{timestamp}.json"
+
+    if dataset_tag:
+        filepath = output_dir / f"{dataset_tag}.json"
+    else:
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filepath = output_dir / f"posts_{timestamp}.json"
 
     with open(filepath, "w") as f:
         json.dump(posts, f, indent=2)
@@ -73,6 +78,7 @@ async def collect_posts(
     sample_rate: float = 1.0,
     max_posts: int = 3,
     output_dir: Path = Path("data/incoming/firehose/latest"),
+    dataset_tag: str | None = None,
 ) -> Path:
     """Collect posts from firehose and save to file.
 
@@ -80,6 +86,7 @@ async def collect_posts(
         sample_rate: Fraction of posts to collect (0.0 to 1.0)
         max_posts: Number of posts to collect
         output_dir: Directory to save the file
+        dataset_tag: Optional tag to name the dataset (e.g., 'random_100')
 
     Returns:
         Path to the saved file
@@ -93,7 +100,7 @@ async def collect_posts(
         print(f"Collected post {len(posts)}/{max_posts}")
 
     print(f"\nCollected {len(posts)} posts. Saving...")
-    filepath = save_posts(posts, output_dir)
+    filepath = save_posts(posts, output_dir, dataset_tag=dataset_tag)
     print(f"Saved to: {filepath}")
 
     return filepath
